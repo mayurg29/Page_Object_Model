@@ -3,11 +3,15 @@ package utility;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
@@ -64,6 +68,24 @@ public class Utility extends Base{
 			values.add(val);
 		}
 		return values;
+	}
+	
+	/**
+	 * Method to take screenshot
+	 */
+	public static void takeScreenshot() {
+		try {
+			String date = new Date().toString().replaceAll(":", "_");
+			System.out.println("Date is: " + date);
+			
+			TakesScreenshot ts = (TakesScreenshot) driver;
+			File srcFile = ts.getScreenshotAs(OutputType.FILE);
+			File destFile = new File(System.getProperty("user.dir") + "\\screenshot\\" + date + "failed.png");
+			FileUtils.copyFile(srcFile, destFile);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
