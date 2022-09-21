@@ -30,19 +30,16 @@ public class Base {
 	protected static LoginPage loginPage;
 	protected static String message;
 	
-	protected final static String FILE_PATH = System.getProperty("user.dir") + 
-											  "\\src\\main\\resources\\repository\\LoginTestData.xlsx";
+	protected final static String FILE_PATH = System.getProperty("user.dir") + "\\src\\main\\resources\\repository\\LoginTestData.xlsx";
 	
 	static {
 		WebDriverManager.chromedriver().setup();
-		System.setProperty("webdriver.edge.driver", System.getProperty("user.dir") + 
-													"\\src\\main\\resources\\drivers\\msedgedriver.exe");
+		System.setProperty("webdriver.edge.driver", System.getProperty("user.dir") + "\\src\\main\\resources\\drivers\\msedgedriver.exe");
 	}
 	
 	public Base() {
 		try {
-			fileInputStream = new FileInputStream(System.getProperty("user.dir") + 
-												  "\\src\\main\\resources\\repository\\config.properties");
+			fileInputStream = new FileInputStream(System.getProperty("user.dir") + "\\src\\main\\resources\\repository\\config.properties");
 			properties = new Properties();
 			properties.load(fileInputStream);
 		
