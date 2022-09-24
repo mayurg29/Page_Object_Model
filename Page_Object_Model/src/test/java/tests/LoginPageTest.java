@@ -1,6 +1,5 @@
-package test;
+package tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -29,8 +28,8 @@ public class LoginPageTest extends Base{
 	@DataProvider(name = "Data")
 	public Object[][] dataTest() {
 		data = new Object[1][2];
-		data[0][0] = "mayur@gmail.com";
-		data[0][1] = "Pwd123456";	
+		data[0][0] = "sonar.mayuresh260197@gmail.com";
+		data[0][1] = "Test@12345";	
 		return data;
 	}
 	
@@ -38,35 +37,27 @@ public class LoginPageTest extends Base{
 	 * DataProvider method
 	 */
 	@Test(dataProvider = "Data", priority = 1)
-	public void loginPage(String username, String password) {
-		try {
-			String url = properties.getProperty("baseURL");
-			driver.get(url);
-			Thread.sleep(1000);
-			driver.findElement(By.id("email")).sendKeys(username);
-			Thread.sleep(1000);
-			driver.findElement(By.id("pass")).sendKeys(password);
-			Thread.sleep(1000);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void loginUserDataProviderTest(String email, String pwd) throws InterruptedException {
+		loginPage = new LoginPage();
+		loginPage.loginUsingDataProvider(email, pwd);
+		String homePageTitle = loginPage.verifyHomePageTitle();
+		Assert.assertEquals(homePageTitle, "Facebook");
 	}
 	
 	@Test(priority = 2)
 	public void loginUserPropertyFileTest() {
 		loginPage = new LoginPage();
 		loginPage.loginUserPropertyFile();
-		String loginPageTitle = loginPage.verifyLoginPageTitle();
-		Assert.assertEquals(loginPageTitle, "Facebook – log in or sign up");
+		String homePageTitle = loginPage.verifyHomePageTitle();
+		Assert.assertEquals(homePageTitle, "Facebook");
 	}
 	
 	@Test(priority = 3)
 	public void loginUserUsingXlsxTest() {
 		loginPage = new LoginPage();
 		loginPage.loginUserUsingXlsx();
-		String loginPageTitle = loginPage.verifyLoginPageTitle();
-		Assert.assertEquals(loginPageTitle, "Facebook – log in or sign up");
+		String homePageTitle = loginPage.verifyHomePageTitle();
+		Assert.assertEquals(homePageTitle, "Facebook");
 	}
 	
 	@Test(priority = 4)
@@ -80,7 +71,6 @@ public class LoginPageTest extends Base{
 	@AfterMethod
 	public void terminateDriver() {
 		try {
-			Thread.sleep(1000);
 			utility.closeDriver();
 		} catch (Exception e) {
 			e.printStackTrace();
