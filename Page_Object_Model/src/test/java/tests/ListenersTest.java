@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
