@@ -12,8 +12,12 @@ import org.apache.commons.io.FileUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import base.Base;
 
@@ -37,11 +41,27 @@ public class Utility extends Base{
 			driver.manage().deleteAllCookies();
 			driver.manage().window().maximize();
 			driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-			driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Parameterized send keys method
+	 */
+	public static void sendKeys(WebDriver driver, int timeout, WebElement element, String value) {
+		new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOf(element));
+		element.sendKeys(value);
+	}
+	
+	/**
+	 * Parameterized click method
+	 */
+	public static void click(WebDriver driver, int timeout, WebElement element) {
+		new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(element));
+		element.click();
 	}
 	
 	
@@ -93,6 +113,7 @@ public class Utility extends Base{
 	 */
 	public static void closeDriver() {
 		try {
+			Thread.sleep(4000);
 			driver.close();
 		} catch (Exception e) {
 			e.printStackTrace();
