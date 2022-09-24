@@ -2,11 +2,11 @@ package pages;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import base.Base;
 
@@ -28,15 +28,28 @@ public class LoginPage extends Base{
 		PageFactory.initElements(driver, this);
 	}
 	
+	@SuppressWarnings("static-access")
+	public void loginUsingDataProvider(String email, String pwd) {
+		try {
+			String url = properties.getProperty("baseURL");
+			driver.get(url);
+			utility.sendKeys(driver, 10, emailId, email);
+			utility.sendKeys(driver, 10, password, pwd);
+			utility.click(driver, 5, loginBtn);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@SuppressWarnings("static-access")
 	public void loginUserPropertyFile() {
 		try {
 			String url = properties.getProperty("baseURL");
 			driver.get(url);
-			Thread.sleep(1000);
-			emailId.sendKeys(properties.getProperty("emailId"));
-			Thread.sleep(1000);
-			password.sendKeys(properties.getProperty("password"));
-			Thread.sleep(1000);
+			utility.sendKeys(driver, 10, emailId, properties.getProperty("emailId"));
+			utility.sendKeys(driver, 10, password, properties.getProperty("password"));
+			utility.click(driver, 5, loginBtn);
 			System.out.println("Username from property file: " + properties.getProperty("emailId"));
 			System.out.println("Password from property file: " + properties.getProperty("password"));
 			
@@ -53,10 +66,9 @@ public class LoginPage extends Base{
 			
 			String url = properties.getProperty("baseURL");
 			driver.get(url);
-			driver.findElement(By.id("email")).sendKeys(values.get(0).get(0));
-			Thread.sleep(1000);
-			driver.findElement(By.id("pass")).sendKeys(values.get(0).get(1));
-			Thread.sleep(1000);
+			utility.sendKeys(driver, 10, emailId, values.get(0).get(0));
+			utility.sendKeys(driver, 10, password, values.get(0).get(1));
+			utility.click(driver, 5, loginBtn);
 			System.out.println("Username from excel file: " + values.get(0).get(0));
 			System.out.println("Password from excel file: " + values.get(0).get(1));
 			
@@ -73,11 +85,9 @@ public class LoginPage extends Base{
 			
 			String url = properties.getProperty("baseURL");
 			driver.get(url);
-			driver.findElement(By.id("email")).sendKeys(values.get(0).get(0));
-			Thread.sleep(1000);
-			driver.findElement(By.id("pass")).sendKeys(values.get(0).get(1));
-			Thread.sleep(1000);
-			loginBtn.click();
+			utility.sendKeys(driver, 10, emailId, values.get(1).get(0));
+			utility.sendKeys(driver, 10, password, values.get(1).get(1));
+			utility.click(driver, 5, loginBtn);
 			message = errorMsg.getText();
 			
 		} catch (Exception e) {
@@ -86,8 +96,9 @@ public class LoginPage extends Base{
 		return message;
 	}
 	
-	public String verifyLoginPageTitle() { 
-		String loginPageTitle = driver.getTitle();
-		return loginPageTitle;
+	public String verifyHomePageTitle() { 
+		new WebDriverWait(driver, 10).until(ExpectedConditions.titleContains("Facebook"));
+		String homePageTitle = driver.getTitle();
+		return homePageTitle;
 	}
 }
