@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -34,11 +35,14 @@ public class Utility extends Base{
 		try {
 			if (browser.equals("chrome")) {
 				driver = new ChromeDriver();
+				logger.info("******Chrome Driver initialized******");
 			} else {
 				driver = new EdgeDriver();
+				logger.info("******Edge Driver initialized******");
+
 			}
-			
 			driver.manage().deleteAllCookies();
+			logger.info("******Cookies deleted******");
 			driver.manage().window().maximize();
 			driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -54,6 +58,7 @@ public class Utility extends Base{
 	public static void sendKeys(WebDriver driver, int timeout, WebElement element, String value) {
 		new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOf(element));
 		element.sendKeys(value);
+		logger.info("******Value sent to the element successfully******");
 	}
 	
 	/**
@@ -62,8 +67,8 @@ public class Utility extends Base{
 	public static void click(WebDriver driver, int timeout, WebElement element) {
 		new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(element));
 		element.click();
+		logger.info("******Successfully clicked on the element******");
 	}
-	
 	
 	/**
 	 * Method to read data from excel file
@@ -102,10 +107,20 @@ public class Utility extends Base{
 			File srcFile = ts.getScreenshotAs(OutputType.FILE);
 			File destFile = new File(System.getProperty("user.dir") + "\\screenshot\\" + date + "failed.png");
 			FileUtils.copyFile(srcFile, destFile);
+			logger.info("******Screenshot taken successfully******");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Method to verify post time
+	 */
+	public static String verifyPostTime() {
+		String postTime = driver.findElement(By.xpath("//body[1]/div[1]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[4]/div[2]/div[1]/div[2]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/div[2]/span[1]/span[1]/span[2]/span[1]/a[1]/span[1]")).getText();
+		System.out.println("Post time: " + postTime);
+		return postTime;
 	}
 	
 	/**
@@ -115,6 +130,7 @@ public class Utility extends Base{
 		try {
 			Thread.sleep(4000);
 			driver.close();
+			logger.info("******Browser closed******");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
