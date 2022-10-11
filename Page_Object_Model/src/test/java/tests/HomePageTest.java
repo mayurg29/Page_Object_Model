@@ -1,12 +1,16 @@
 package tests;
 
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import base.Base;
 import pages.HomePage;
+import pages.LoginPage;
 
+@Listeners(utility.Listeners.class)
 public class HomePageTest extends Base{
 
 	public HomePageTest() {
@@ -23,22 +27,43 @@ public class HomePageTest extends Base{
 		}
 	}
 	
-	@Test
-	public void uploadProfilePicTest() {
-		HomePage homePage = new HomePage();
-		homePage.uploadProfilePic();
-	}
-	
+	/**
+	 * Method to post an image
+	 */
+	@SuppressWarnings("static-access")
 	@Test
 	public void postImageTest() {
-		HomePage homePage = new HomePage();
+		loginPage = new LoginPage();
+		loginPage.loginUserPropertyFile();
+		homePage = new HomePage();
 		homePage.postImage();
+		String postTime = utility.verifyPostTime();
+		Assert.assertEquals(postTime, "1 m");
 	}
 	
+	/**
+	 * Method to post status
+	 */
+	@SuppressWarnings("static-access")
 	@Test
 	public void postStatusTest() {
-		HomePage homePage = new HomePage();
+		loginPage = new LoginPage();
+		loginPage.loginUserPropertyFile();
+		homePage = new HomePage();
 		homePage.postStatus();
+		String postTime = utility.verifyPostTime();
+		Assert.assertEquals(postTime, "1 m");
+	}
+	
+	/**
+	 * Method to post a video
+	 */
+	@Test
+	public void postVideoTest() {
+		loginPage = new LoginPage();
+		loginPage.loginUserPropertyFile();
+		homePage = new HomePage();
+		homePage.postVideo();
 	}
 	
 	@SuppressWarnings("static-access")
