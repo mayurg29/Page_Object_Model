@@ -3,10 +3,12 @@ package tests;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.SkipException;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import base.Base;
 
+@Listeners(utility.Listeners.class)
 public class ListenersTest extends Base{
 
 //	Failed test
