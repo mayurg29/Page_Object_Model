@@ -4,11 +4,13 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import base.Base;
 import pages.LoginPage;
 
+@Listeners(utility.Listeners.class)
 public class LoginPageTest extends Base{
 	
 	public LoginPageTest() {
@@ -34,32 +36,41 @@ public class LoginPageTest extends Base{
 	}
 	
 	/**
-	 * DataProvider method
+	 * Method to login using DataProvider
 	 */
 	@Test(dataProvider = "Data", priority = 1)
 	public void loginUserDataProviderTest(String email, String pwd) throws InterruptedException {
 		loginPage = new LoginPage();
 		loginPage.loginUsingDataProvider(email, pwd);
-		String homePageTitle = loginPage.verifyHomePageTitle();
+		String homePageTitle = loginPage.verifyPageTitle();
 		Assert.assertEquals(homePageTitle, "Facebook");
 	}
 	
+	/**
+	 * Method to login using data from property file
+	 */
 	@Test(priority = 2)
 	public void loginUserPropertyFileTest() {
 		loginPage = new LoginPage();
 		loginPage.loginUserPropertyFile();
-		String homePageTitle = loginPage.verifyHomePageTitle();
+		String homePageTitle = loginPage.verifyPageTitle();
 		Assert.assertEquals(homePageTitle, "Facebook");
 	}
 	
+	/**
+	 * Method to login using data from excel sheet
+	 */
 	@Test(priority = 3)
 	public void loginUserUsingXlsxTest() {
 		loginPage = new LoginPage();
 		loginPage.loginUserUsingXlsx();
-		String homePageTitle = loginPage.verifyHomePageTitle();
+		String homePageTitle = loginPage.verifyPageTitle();
 		Assert.assertEquals(homePageTitle, "Facebook");
 	}
 	
+	/**
+	 * Method to validate invalid login credentials
+	 */
 	@Test(priority = 4)
 	public void validateInvalidLoginCredTest() {
 		loginPage = new LoginPage();
