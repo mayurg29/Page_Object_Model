@@ -4,8 +4,11 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-public class Listeners implements ITestListener{
+import base.Base;
 
+public class Listeners extends Base implements ITestListener{
+
+	Base base = new Base();
 	Utility utility = new Utility();
 
 	public void onStart(ITestContext context) {	
