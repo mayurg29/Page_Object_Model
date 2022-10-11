@@ -28,6 +28,9 @@ public class LoginPage extends Base{
 		PageFactory.initElements(driver, this);
 	}
 	
+	/**
+	 * Method to login using data provider
+	 */
 	@SuppressWarnings("static-access")
 	public void loginUsingDataProvider(String email, String pwd) {
 		try {
@@ -42,6 +45,9 @@ public class LoginPage extends Base{
 		}
 	}
 	
+	/**
+	 * Method to login using data from property file
+	 */
 	@SuppressWarnings("static-access")
 	public void loginUserPropertyFile() {
 		try {
@@ -58,6 +64,9 @@ public class LoginPage extends Base{
 		}
 	}
 	
+	/**
+	 * Method to login using data from excel sheet
+	 */
 	@SuppressWarnings("static-access")
 	public void loginUserUsingXlsx() {
 		try {
@@ -77,6 +86,9 @@ public class LoginPage extends Base{
 		}
 	}
 	
+	/**
+	 * Method to validate invalid login credentials
+	 */
 	@SuppressWarnings("static-access")
 	public String validateInvalidLoginCred() {
 		try {
@@ -96,9 +108,12 @@ public class LoginPage extends Base{
 		return message;
 	}
 	
-	public String verifyHomePageTitle() { 
+	/**
+	 * Method to verify page title
+	 */
+	public String verifyPageTitle() { 
 		new WebDriverWait(driver, 10).until(ExpectedConditions.titleContains("Facebook"));
-		String homePageTitle = driver.getTitle();
-		return homePageTitle;
+		String pageTitle = driver.getTitle();
+		return pageTitle;
 	}
 }
