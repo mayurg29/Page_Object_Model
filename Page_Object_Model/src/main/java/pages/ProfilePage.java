@@ -5,13 +5,10 @@ import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
-
 import base.Base;
 
 public class ProfilePage extends Base{
@@ -149,18 +146,9 @@ public class ProfilePage extends Base{
 			utility.sendKeys(driver, 10, writeComment, randomString);
 			robot = new Robot();
 			robot.keyPress(KeyEvent.VK_ENTER);
-			Thread.sleep(5000);
-			String comment = profilePage.validateComment();
-			Assert.assertEquals(comment, randomString);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public String validateComment() {
-		String comment = driver.findElement(By.xpath("//body[1]/div[1]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[4]/div[2]/div[1]/div[2]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[4]/div[1]/div[1]/div[2]/ul[1]/li[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[last()]")).getText();
-		System.out.println(comment);
-		return comment;
 	}
 }
