@@ -8,7 +8,6 @@ import base.Base;
 
 public class Listeners extends Base implements ITestListener{
 
-	Base base = new Base();
 	Utility utility = new Utility();
 
 	public void onStart(ITestContext context) {	
