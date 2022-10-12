@@ -5,10 +5,13 @@ import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
+
 import base.Base;
 
 public class ProfilePage extends Base{
@@ -142,13 +145,26 @@ public class ProfilePage extends Base{
 		try {
 			utility.click(driver, 10, profileBtn);
 			String randomString = RandomStringUtils.randomAlphabetic(10);
-			System.out.println(randomString);
+			System.out.println("Random String: " + randomString);
 			utility.sendKeys(driver, 10, writeComment, randomString);
 			robot = new Robot();
 			robot.keyPress(KeyEvent.VK_ENTER);
+			Thread.sleep(5000);
+			String comment = profilePage.getComment();
+			Assert.assertEquals(comment, randomString);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	/**
+	 * Method to get recent comment on recent post
+	 */
+	public String getComment() {
+		String comment = driver.findElement(By.xpath("(//ul)[2]/li[last()]/div/div/div/div/div/div/div/div/div/span/div/div")).getText();
+		System.out.println("Comment: " + comment);
+		return comment;
 	}
 }
