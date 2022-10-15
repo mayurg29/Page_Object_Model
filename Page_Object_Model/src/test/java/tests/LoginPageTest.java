@@ -13,10 +13,16 @@ import pages.LoginPage;
 @Listeners(utility.Listeners.class)
 public class LoginPageTest extends Base{
 	
+	/**
+	 * Method to call the parent class
+	 */
 	public LoginPageTest() {
 		super();
 	}
 	
+	/**
+	 * Method to initialize the driver
+	 */
 	@SuppressWarnings("static-access")
 	@BeforeMethod
 	public void triggerDriver() {
@@ -30,8 +36,8 @@ public class LoginPageTest extends Base{
 	@DataProvider(name = "Data")
 	public Object[][] dataTest() {
 		data = new Object[1][2];
-		data[0][0] = "sonar.mayuresh260197@gmail.com";
-		data[0][1] = "Test@12345";	
+		data[0][0] = "onealpha946@gmail.com";
+		data[0][1] = "Demo@98765";	
 		return data;
 	}
 	
@@ -75,9 +81,12 @@ public class LoginPageTest extends Base{
 	public void validateInvalidLoginCredTest() {
 		loginPage = new LoginPage();
 		message = loginPage.validateInvalidLoginCred();
-		Assert.assertEquals(message, "The password that you've entered is incorrect. Forgotten password?");
+		Assert.assertEquals(message, "The password that you've entered is incorrect. Forgotten password");
 	}
 	
+	/**
+	 * Method to terminate the driver
+	 */
 	@SuppressWarnings("static-access")
 	@AfterMethod
 	public void terminateDriver() {
