@@ -12,10 +12,16 @@ import pages.ProfilePage;
 @Listeners(utility.Listeners.class)
 public class ProfilePageTest extends Base{
 	
+	/**
+	 * Method to call the parent class
+	 */
 	public ProfilePageTest() {
 		super();
 	}
 
+	/**
+	 * Method to initialize the driver
+	 */
 	@SuppressWarnings("static-access")
 	@BeforeMethod
 	public void triggerDriver() {
@@ -29,7 +35,7 @@ public class ProfilePageTest extends Base{
 	/**
 	 * Method to upload profile picture
 	 */
-	@Test
+	@Test(priority = 1)
 	public void uploadProfilePicTest() {
 		loginPage = new LoginPage();
 		loginPage.loginUserPropertyFile();
@@ -40,7 +46,7 @@ public class ProfilePageTest extends Base{
 	/**
 	 * Method to add cover picture
 	 */
-	@Test
+	@Test(priority = 5)
 	public void addCoverPicTest() {
 		loginPage = new LoginPage();
 		loginPage.loginUserPropertyFile();
@@ -51,7 +57,7 @@ public class ProfilePageTest extends Base{
 	/**
 	 * Method to remove cover picture
 	 */
-	@Test
+	@Test(priority = 4)
 	public void removeCoverPicTest() {
 		loginPage = new LoginPage();
 		loginPage.loginUserPropertyFile();
@@ -62,7 +68,7 @@ public class ProfilePageTest extends Base{
 	/**
 	 * Method to like recent post
 	 */
-	@Test
+	@Test(priority = 2)
 	public void likePostTest() {
 		loginPage = new LoginPage();
 		loginPage.loginUserPropertyFile();
@@ -73,7 +79,7 @@ public class ProfilePageTest extends Base{
 	/**
 	 * Method to comment on recent post
 	 */
-	@Test
+	@Test(priority = 3)
 	public void commentOnPostTest() {
 		loginPage = new LoginPage();
 		loginPage.loginUserPropertyFile();
@@ -81,6 +87,9 @@ public class ProfilePageTest extends Base{
 		profilePage.commentOnPost();
 	}
 	
+	/**
+	 * Method to terminate the driver
+	 */
 	@SuppressWarnings("static-access")
 	@AfterMethod
 	public void terminateDriver() {
