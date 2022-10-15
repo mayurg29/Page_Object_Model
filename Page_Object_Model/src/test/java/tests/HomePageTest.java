@@ -13,10 +13,16 @@ import pages.LoginPage;
 @Listeners(utility.Listeners.class)
 public class HomePageTest extends Base{
 
+	/**
+	 * Method to call the parent class
+	 */
 	public HomePageTest() {
 		super();
 	}
 	
+	/**
+	 * Method to initialize the driver
+	 */
 	@SuppressWarnings("static-access")
 	@BeforeMethod
 	public void triggerDriver() {
@@ -31,7 +37,7 @@ public class HomePageTest extends Base{
 	 * Method to post an image
 	 */
 	@SuppressWarnings("static-access")
-	@Test
+	@Test(priority = 1)
 	public void postImageTest() {
 		loginPage = new LoginPage();
 		loginPage.loginUserPropertyFile();
@@ -45,7 +51,7 @@ public class HomePageTest extends Base{
 	 * Method to post status
 	 */
 	@SuppressWarnings("static-access")
-	@Test
+	@Test(priority = 2)
 	public void postStatusTest() {
 		loginPage = new LoginPage();
 		loginPage.loginUserPropertyFile();
@@ -58,14 +64,20 @@ public class HomePageTest extends Base{
 	/**
 	 * Method to post a video
 	 */
-	@Test
+	@SuppressWarnings("static-access")
+	@Test(priority = 3)
 	public void postVideoTest() {
 		loginPage = new LoginPage();
 		loginPage.loginUserPropertyFile();
 		homePage = new HomePage();
 		homePage.postVideo();
+		String postTime = utility.verifyPostTime();
+		Assert.assertEquals(postTime, "1 m");
 	}
 	
+	/**
+	 * Method to terminate the driver
+	 */
 	@SuppressWarnings("static-access")
 	@AfterMethod
 	public void terminateDriver() {
