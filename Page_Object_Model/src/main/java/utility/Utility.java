@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -27,7 +28,7 @@ import base.Base;
  *
  */
 public class Utility extends Base{
-	
+
 	/**
 	 * Method to initialize the driver
 	 */
@@ -46,12 +47,12 @@ public class Utility extends Base{
 			driver.manage().window().maximize();
 			driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Parameterized send keys method
 	 */
@@ -60,7 +61,7 @@ public class Utility extends Base{
 		element.sendKeys(value);
 		logger.info("******Value sent to the element successfully******");
 	}
-	
+
 	/**
 	 * Parameterized click method
 	 */
@@ -69,24 +70,24 @@ public class Utility extends Base{
 		element.click();
 		logger.info("******Successfully clicked on the element******");
 	}
-	
+
 	/**
 	 * Method to read data from excel file
 	 */
 	public static List<List<String>> excelReader() throws IOException {
-		
+
 		List<List<String>> values = new LinkedList<List<String>>();
 		File file = new File(FILE_PATH);
 		fileInputStream = new FileInputStream(file);
 		xWorkbook = new XSSFWorkbook(fileInputStream);
 		xSheet = xWorkbook.getSheet("LoginData");
-		
+
 		int rowCount = xSheet.getLastRowNum();
-		
+
 		for (int i = 1; i <= rowCount; i++) {
 			int cellCount = xSheet.getRow(i).getLastCellNum();
 			List<String> val = new LinkedList<>();
-			
+
 			for (int j = 0; j < cellCount; j++) {
 				val.add(xSheet.getRow(i).getCell(j).getStringCellValue());
 			}
@@ -94,7 +95,7 @@ public class Utility extends Base{
 		}
 		return values;
 	}
-	
+
 	/**
 	 * Method to take screenshot
 	 */
@@ -102,27 +103,30 @@ public class Utility extends Base{
 		try {
 			String date = new Date().toString().replaceAll(":", "_");
 			System.out.println("Date is: " + date);
-			
+
 			TakesScreenshot ts = (TakesScreenshot) driver;
 			File srcFile = ts.getScreenshotAs(OutputType.FILE);
 			File destFile = new File(System.getProperty("user.dir") + "\\screenshot\\" + date + "failed.png");
 			FileUtils.copyFile(srcFile, destFile);
 			logger.info("******Screenshot taken successfully******");
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Method to verify post time
 	 */
 	public static String verifyPostTime() {
-		String postTime = driver.findElement(By.xpath("//body[1]/div[1]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[4]/div[2]/div[1]/div[2]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/div[2]/span[1]/span[1]/span[2]/span[1]/a[1]/span[1]")).getText();
-		System.out.println("Post time: " + postTime);
+		WebElement timeOfPost = driver.findElement(By.xpath("(//a[@aria-label='1 m']/span)[1]"));
+		String postTime = timeOfPost.getText();
+		System.out.println("Post Time: " + postTime);
+		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		executor.executeScript("window.scrollBy(0,400);");
 		return postTime;
 	}
-	
+
 	/**
 	 * Method to close the driver
 	 */
