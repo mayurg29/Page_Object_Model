@@ -7,12 +7,14 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import base.Base;
 
 public class MarketplacePage extends Base{
 
-	@FindBy(xpath = "//a[@aria-label='Marketplace']")
+	@FindBy(xpath = "//span[contains(text(),'Marketplace')]")
 	private WebElement marketPlace;
 
 	@FindBy(xpath = "(//input[@aria-label='Search Marketplace'])[1]")
@@ -32,15 +34,16 @@ public class MarketplacePage extends Base{
 	public void searchMarketplace() {
 		try {
 			utility.click(driver, 10, marketPlace);
-			JavascriptExecutor executor = (JavascriptExecutor) driver;
-			executor.executeScript("arguments[0].scrollIntoView(true);", sportingGoods);
-			utility.click(driver, 10, sportingGoods);
-			Thread.sleep(2000);
-			
 			utility.sendKeys(driver, 10, searchMarketplace, "mobile");
 			robot = new Robot();
 			robot.keyPress(KeyEvent.VK_ENTER);
 			robot.keyRelease(KeyEvent.VK_ENTER);
+			Thread.sleep(2000);
+			
+			JavascriptExecutor executor = (JavascriptExecutor) driver;
+			executor.executeScript("arguments[0].scrollIntoView(true);", sportingGoods);
+			utility.click(driver, 10, sportingGoods);
+			new WebDriverWait(driver, 10).until(ExpectedConditions.titleContains("Facebook Marketplace | Facebook"));
 			
 		} catch (Exception e) {
 			e.printStackTrace();		
