@@ -8,7 +8,7 @@ import base.Base;
 
 public class FindFriendsPage extends Base{
 
-	@FindBy(xpath = "//a[@aria-label='Find friends']")
+	@FindBy(xpath = "//span[contains(text(),'Find Friends')]")
 	private WebElement findFriends;
 
 	@FindBy(xpath = "//span[contains(text(),'All Friends')]")
