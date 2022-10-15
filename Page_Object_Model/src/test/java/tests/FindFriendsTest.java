@@ -13,10 +13,16 @@ import pages.LoginPage;
 @Listeners(utility.Listeners.class)
 public class FindFriendsTest extends Base{
 
+	/**
+	 * Method to call the parent class
+	 */
 	public FindFriendsTest() {
 		super();
 	}
 	
+	/**
+	 * Method to initialize the driver
+	 */
 	@SuppressWarnings("static-access")
 	@BeforeMethod
 	public void triggerDriver() {
@@ -40,6 +46,9 @@ public class FindFriendsTest extends Base{
 		Assert.assertEquals(findFriendsTitle, "All Friends | Facebook");
 	}
 	
+	/**
+	 * Method to terminate the driver
+	 */
 	@SuppressWarnings("static-access")
 	@AfterMethod
 	public void terminateDriver() {
