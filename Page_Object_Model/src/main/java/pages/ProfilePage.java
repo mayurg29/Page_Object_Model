@@ -16,7 +16,7 @@ import base.Base;
 
 public class ProfilePage extends Base{
 
-	@FindBy(xpath = "//a[@aria-label='Bridgelabz Demo']")
+	@FindBy(xpath = "(//span[contains(text(),'Max Demo')])[1]")
 	private WebElement profileBtn;
 
 	@FindBy(xpath = "//div[@aria-label='Update profile picture']")
@@ -158,12 +158,11 @@ public class ProfilePage extends Base{
 		}
 	}
 	
-	
 	/**
 	 * Method to get recent comment on recent post
 	 */
 	public String getComment() {
-		String comment = driver.findElement(By.xpath("(//ul)[2]/li[last()]/div/div/div/div/div/div/div/div/div/span/div/div")).getText();
+		String comment = driver.findElement(By.xpath("(//ul)[3]/li[last()]/div/div/div/div/div/div/div/div/div/span/div/div")).getText();
 		System.out.println("Comment: " + comment);
 		return comment;
 	}
