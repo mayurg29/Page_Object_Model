@@ -31,9 +31,6 @@ public class HomePage extends Base{
 	@FindBy(xpath = "(//span[contains(text(),'Max Demo')])[1]")
 	private WebElement profileBtn;
 	
-	@FindBy(xpath = "//span[contains(text(),'Posting')]")
-	private WebElement postingScrn;
-	
 	@FindBy(xpath = "//a[@aria-label='Notifications, 1 unread']")
 	private WebElement notifications;
 	
