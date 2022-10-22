@@ -54,6 +54,8 @@ public class HomePage extends Base{
 			utility.click(driver, 10, postBtn);
 			Thread.sleep(10000);
 			utility.click(driver, 10, profileBtn);
+			Thread.sleep(4000);
+			driver.navigate().refresh();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,8 +73,10 @@ public class HomePage extends Base{
 			Actions actions = new Actions(driver);
 			actions.sendKeys(statusMsg, "Believe in yourself.").perform();
 			utility.click(driver, 10, postBtn);
-			Thread.sleep(3000);
+			Thread.sleep(4000);
 			utility.click(driver, 10, profileBtn);
+			Thread.sleep(4000);
+			driver.navigate().refresh();
 
 		} catch (Exception e) {
 			e.printStackTrace();
